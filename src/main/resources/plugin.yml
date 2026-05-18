@@ -1,0 +1,12 @@
+name: CauldronConcrete
+version: '${VERSION}'
+main: me.gudev.cauldronconcrete.CauldronConcretePlugin
+api-version: '1.16'
+prefix: CauldronConcrete
+authors: [ Gudev ]
+description: Converts concrete powder to concrete using cauldrons. Improved by Gudev.
+
+permissions:
+  cauldronconcrete.use:
+    description: Allows using cauldrons to convert concrete powder.
+    default: true

@@ -1,9 +1,29 @@
-  Description EN:
-  A lightweight and high-performance plugin that introduces a realistic way to harden concrete powder using water cauldrons.
-   * Mechanics: Hold a stack of concrete powder, sneak (Shift), and right-click a water cauldron. The entire stack transforms into concrete instantly, consuming one level of water.
-   * Features: Cross-version support (1.16.5 - 1.21.11), no dupe bugs, permission support, and zero server impact.
-  
-  Описание RU:
-  Минималистичный и эффективный плагин, который добавляет механику превращения сухого бетона в обычный с помощью котлов.
-   * Как это работает: Возьмите стак сухого бетона, присядьте (Shift) и кликните правой кнопкой мыши по котлу с водой. Весь стак мгновенно станет бетоном, потратив лишь один уровень воды!
-   * Особенности: Поддержка всех версий от 1.16.5 до 1.21.11, высокая производительность, отсутствие дюпов и поддержка прав доступа.
+# CauldronConcrete
+
+A simple and efficient Minecraft plugin that allows players to convert concrete powder into concrete blocks using water-filled cauldrons.
+
+Developed by **Gudev**.
+
+## Features
+- **Batch Processing:** Convert an entire stack of concrete powder in one click.
+- **Water Consumption:** Each conversion uses 1 level of water from the cauldron.
+- **Sneak to Use:** Prevents accidental conversion.
+- **Permission Based:** Easily control who can use this feature.
+- **High Performance:** Lightweight and optimized for version 1.21.11.
+
+## How to Use
+1. Fill a cauldron with water.
+2. Hold any **Concrete Powder** in your main hand.
+3. **Sneak (Shift)** and **Right-Click** on the water cauldron.
+4. Your powder will instantly turn into **Concrete**!
+
+## Permissions
+- `cauldronconcrete.use`: Allows using the cauldron conversion (default: true).
+
+## Installation
+1. Download the `.jar` file.
+2. Place it in your server's `plugins` folder.
+3. Restart your server.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
