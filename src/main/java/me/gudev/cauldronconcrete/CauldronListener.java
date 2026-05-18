@@ -25,40 +25,47 @@ public class CauldronListener implements Listener {
         if (!player.isSneaking()) return;
 
         Block block = event.getClickedBlock();
-        if (block == null || block.getType() != Material.WATER_CAULDRON) return;
+        if (block == null) return;
+
+        // Cross-version check for water level
+        // In 1.17+ WATER_CAULDRON implements Levelled.
+        // In 1.16.5 CAULDRON implements Levelled.
+        // If it doesn't have levels, it's not a water-filled cauldron.
+        if (!(block.getBlockData() instanceof Levelled)) return;
+
+        // Security check: make sure it's actually water, not lava or powder snow (for 1.17+)
+        Material blockType = block.getType();
+        String typeName = blockType.name();
+        if (!typeName.equals("WATER_CAULDRON") && !typeName.equals("CAULDRON")) return;
 
         ItemStack item = player.getInventory().getItemInMainHand();
-        Material type = item.getType();
-        String typeName = type.name();
+        Material itemType = item.getType();
+        String itemTypeName = itemType.name();
         
-        if (!typeName.endsWith("_CONCRETE_POWDER")) return;
+        if (!itemTypeName.endsWith("_CONCRETE_POWDER")) return;
 
-        Material concreteType = Material.getMaterial(typeName.replace("_POWDER", ""));
+        Material concreteType = Material.getMaterial(itemTypeName.replace("_POWDER", ""));
         if (concreteType == null) return;
 
         Levelled levelled = (Levelled) block.getBlockData();
         int level = levelled.getLevel();
 
         if (level > 0) {
-            // Cancel placement
             event.setCancelled(true);
 
-            // Consume one water level
+            // Handle water level
             if (level > 1) {
                 levelled.setLevel(level - 1);
                 block.setBlockData(levelled);
             } else {
+                // Return to empty cauldron
                 block.setType(Material.CAULDRON);
             }
 
-            // Effects
             player.getWorld().playSound(block.getLocation(), Sound.ENTITY_GENERIC_SPLASH, 1.0f, 1.0f);
-
-            // BATCH CONVERSION: Convert the entire stack in hand
-            // We use a small delay or direct modification. Direct is fine since we cancelled the event.
-            item.setType(concreteType);
             
-            // Force update to prevent client-side desync (ghost items)
+            // Batch convert
+            item.setType(concreteType);
             player.updateInventory();
         }
     }
